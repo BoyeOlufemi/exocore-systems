@@ -1,39 +1,58 @@
 # ExoCore Systems
 
-Personal site for **Boye' Olufemi** — Operational Architect | Business Process Optimization & Intelligent Workflow Systems.
+Production site for **ExoCore Systems** / Boye&rsquo; Olufemi (Operational Architect), built with **TanStack Start** (React) + **Tailwind CSS v4**. Ported from the static prototype into real routes, `/public` WebP assets, and n8n-wired forms.
 
-Automation studio that clears the busywork out of a business. Live prototype, "Nocturnal Bohemian Modernism" aesthetic.
+## Stack
+- **TanStack Start** (SSR) + **TanStack Router** (file-based routing)
+- **Tailwind CSS v4** via `@tailwindcss/vite`
+- **Vite 6**, **React 19**, **TypeScript**
+- **Deploy:** Vercel
 
-## What's here
+## Routes
+- `/` — the hub: hero, the Functional Nucleus (Engine / Shield / Catalyst), the two tracks, selected work, about, contact.
+- `/contractors` — **Track A** landing page (Home Services AI Employee). Off the main nav; send the link directly.
+- `/agri` — **Track B** landing page (Internal Ops Platform for agri-procurement). Off the main nav.
 
-`index.html` — a self-contained static prototype of the full site. No build step, no dependencies. Open it in a browser or drop it on any static host.
+## Getting started
+```bash
+npm install
+npm run dev        # http://localhost:3000
+```
+The TanStack Router plugin generates `src/routeTree.gen.ts` automatically on first `dev`/`build`, so it is gitignored.
 
-It uses hash-based routing for three views:
+## Build & deploy
+```bash
+npm run build
+```
+On **Vercel**, import the repo — TanStack Start (Nitro) is auto-detected. Build command is `vite build`.
 
-- `#/` — **Hub** (homepage): hero, Functional Nucleus (Engine · Shield · Catalyst), the two ExoCore tracks, selected work, about, contact.
-- `#/contractors` — **Track A** landing page (Home Services AI Employee). Off the main menu; sent via outreach.
-- `#/agri` — **Track B** landing page (Internal Ops Platform for agri-procurement). Off the main menu.
+## Forms → n8n
+The intake forms POST JSON to the webhook in `VITE_N8N_WEBHOOK_URL`. Copy `.env.example` to `.env` and set it, and add the same variable in Vercel (Project → Settings → Environment Variables). If it is unset, the forms still show a confirmation and simply do not post.
 
-Everything is inline: fonts (Google Fonts), the Afro-Bohemian hero art and textures (optimized JPEG data-URIs), the "EC" Woven Coin logo + SVG favicon, the canvas particle/glow motion layer, and the scroll-reveal flourishes. Motion respects `prefers-reduced-motion`.
+## Project structure
+```
+public/                favicon.svg + hero/mudcloth/medallion/headshot .webp
+src/
+  routes/
+    __root.tsx         document shell: head, meta, fonts, favicon, layout
+    index.tsx          hub
+    contractors.tsx    Track A
+    agri.tsx           Track B
+  components/
+    Mark.tsx           reusable "EC" Woven Coin mark
+    Background.tsx     particles + glow parallax + scroll reveals
+    Header.tsx         route-aware nav
+    Footer.tsx
+    IntakeForm.tsx     reusable form that posts to n8n
+  styles/app.css       Tailwind v4 import, @theme tokens, full design system
+  router.tsx
+vite.config.ts         tanstackStart() before viteReact(), + tailwindcss()
+```
 
-## Interactions
-
-- **Primary CTAs** scroll to the on-page intake forms (lead capture first).
-- **Booking** is a secondary option in the contact area → `https://cal.com/boye-exocoresystems/30min`.
-- **Forms** are prototype-only here; in production they post to an n8n intake webhook.
-
-## Deploy
-
-Any static host works:
-
-- **Vercel** — import the repo, framework preset "Other", output = repo root.
-- **GitHub Pages** — Settings → Pages → deploy from `main` / root.
-- **Netlify / Cloudflare Pages** — drag-and-drop or connect the repo.
-
-## Roadmap
-
-Planned production build: port to **TanStack Start + Tailwind v4** with real `/contractors` and `/agri` routes, art moved to `/public` as WebP, a reusable `<Mark />` component, form actions wired to n8n, and Vercel config.
+## Design notes
+- Aesthetic: "Nocturnal Bohemian Modernism" — warm-dark `#1f1a16`, cool `#bac6da` text, earthen accents (`#7a6855`, `#b59e80`, `#724920`).
+- Reveal animations are gated behind an `html.js` class, so content is fully visible even if JavaScript fails to load.
+- All motion respects `prefers-reduced-motion`.
 
 ---
-
 © 2026 ExoCore Systems · ExoCoreSystems.com
