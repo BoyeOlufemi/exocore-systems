@@ -1,0 +1,40 @@
+[
+  {
+    "timestamp": 1768540836.40591,
+    "raw_text": "Client: David. Contact: . Request: David",
+    "processed": {
+      "customer_name": "David",
+      "order_items": [],
+      "deadline": "None",
+      "inventory_needed": [],
+      "urgency_score": 1,
+      "user_queries": [],
+      "missing_info": [],
+      "suggested_response": "Hi David, thanks for reaching out! Could you please provide more details about your request so I can assist you better? Let me know what you need."
+    }
+  },
+  {
+    "timestamp": 1768541033.1338902,
+    "raw_text": "Client: John Golden. Contact: 12345668. Request: 14 fufu, Egusi , spicy and hot. drinks. Sunday 1pm. 60656 delivery ",
+    "processed": {
+      "customer_name": "John Golden",
+      "order_items": [
+        "14 fufu",
+        "Egusi",
+        "spicy and hot",
+        "drinks"
+      ],
+      "deadline": "Sunday 1pm",
+      "inventory_needed": [
+        "fufu ingredients (e.g., plantains, cassava)",
+        "Egusi seeds",
+        "Spices (e.g., pepper, chili)",
+        "Drink ingredients (various, depending on type)"
+      ],
+      "urgency_score": 8,
+      "user_queries": [],
+      "missing_info": [],
+      "suggested_response": "Hi John, thanks for your order! We've got you down for 14 fufu, Egusi (spicy and hot), and drinks for delivery to 60656 this Sunday at 1pm. Please let us know if you have specific drink preferences. We look forward to serving you!"
+    }
+  }
+]

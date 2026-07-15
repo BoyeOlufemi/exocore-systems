@@ -1,0 +1,149 @@
+[
+  {
+    "timestamp": 1768541797.556694,
+    "raw_text": "Client: Mike. Contact: . Request: Hey, it's Mike from the Law Firm. We have a huge event on Thursday at 6pm. We need 120 meat pies, 50 jollof packs, 30 fruit platters, and 10 extra sides of spicy sauce. We are at the North Office now, not the South one. I need a quote ASAP because the boss is breathing down my neck!",
+    "processed": {
+      "customer_name": "Mike",
+      "order_items": [
+        "120 meat pies",
+        "50 jollof packs",
+        "30 fruit platters",
+        "10 extra sides of spicy sauce"
+      ],
+      "deadline": "Thursday at 6pm",
+      "inventory_needed": [
+        "Meat pie ingredients",
+        "Jollof rice ingredients",
+        "Fruits",
+        "Spicy sauce ingredients"
+      ],
+      "urgency_score": 9,
+      "user_queries": [
+        "quote ASAP"
+      ],
+      "missing_info": [
+        "specific delivery address"
+      ],
+      "suggested_response": "Hi Mike, thanks for your order! We can definitely fulfill your request for 120 meat pies, 50 jollof packs, 30 fruit platters, and 10 sides of spicy sauce for Thursday at 6pm. To provide an accurate quote, could you please confirm the specific delivery address for the North Office? We'll get that quote to you ASAP. Thanks!",
+      "resource_risk": "High Volume: meat pies"
+    }
+  },
+  {
+    "timestamp": 1768541859.292865,
+    "raw_text": "Client: Jumi. Contact: . Request: Hi, I want to do something for my birthday next month. Maybe food for 20-30 people? Not sure what yet, maybe some rice dishes? What do you think?\"",
+    "processed": {
+      "customer_name": "Jumi",
+      "order_items": [
+        "Food for 20-30 people",
+        "Rice dishes (possibly)"
+      ],
+      "deadline": "Next month",
+      "inventory_needed": [
+        "Rice",
+        "Vegetables",
+        "Meat/Poultry/Seafood (depending on dishes)"
+      ],
+      "urgency_score": 5,
+      "user_queries": [
+        "What do you think?"
+      ],
+      "missing_info": [
+        "Specific birthday date",
+        "Specific dish preferences",
+        "Contact Information"
+      ],
+      "suggested_response": "Hi Jumi, thanks for reaching out! That sounds like a fun birthday event. We can definitely help you create a menu for 20-30 people. To give you the best recommendations, could you please let me know the specific date of your birthday and if you have any particular cuisines or dietary preferences in mind? Also can you provide your contact information.",
+      "resource_risk": null
+    }
+  },
+  {
+    "timestamp": 1768541903.026855,
+    "raw_text": "Client: Shade. Contact: . Request: URGENT. I need 200 Jollof Packs for tomorrow morning at 8am. Please tell me you can do this!",
+    "processed": {
+      "customer_name": "Shade",
+      "order_items": [
+        "200 Jollof Packs"
+      ],
+      "deadline": "Tomorrow morning at 8am",
+      "inventory_needed": [
+        "Rice",
+        "Tomatoes",
+        "Peppers",
+        "Onions",
+        "Vegetable Oil",
+        "Chicken/Beef/Fish (optional)",
+        "Spices",
+        "Packaging Materials"
+      ],
+      "urgency_score": 9,
+      "user_queries": [
+        "Please tell me you can do this!"
+      ],
+      "missing_info": [],
+      "suggested_response": "Dear Shade, thank you for your urgent order of 200 Jollof Packs for tomorrow morning at 8am. We will confirm our ability to fulfill this large order as soon as possible. ",
+      "resource_risk": "High Volume: Jollof Packs"
+    }
+  },
+  {
+    "timestamp": 1768542152.557676,
+    "raw_text": "Client: Mikey. Contact: . Request: Hey, it's Mike from the Law Firm. We have a huge event on Thursday at 6pm. We need 120 meat pies, 50 jollof packs, 30 fruit platters, and 10 extra sides of spicy sauce. We are at the North Office now, not the South one. I need a quote ASAP because the boss is breathing down my neck!",
+    "processed": {
+      "customer_name": "Mikey",
+      "order_items": [
+        "120 meat pies",
+        "50 jollof packs",
+        "30 fruit platters",
+        "10 extra sides of spicy sauce"
+      ],
+      "deadline": "Thursday at 6pm",
+      "inventory_needed": [
+        "Meat pie ingredients",
+        "Jollof rice ingredients",
+        "Fruits",
+        "Spicy sauce ingredients"
+      ],
+      "urgency_score": 9,
+      "user_queries": [
+        "quote ASAP"
+      ],
+      "missing_info": [
+        "specific delivery address",
+        "contact information"
+      ],
+      "suggested_response": "Hi Mike, thanks for your order! I can definitely get you a quote ASAP for 120 meat pies, 50 jollof packs, 30 fruit platters, and 10 sides of spicy sauce for Thursday at 6pm. To finalize the quote, could you please provide the specific delivery address for the North Office and your contact information? Thank you!",
+      "resource_risk": "High Volume: meat pies"
+    }
+  },
+  {
+    "timestamp": 1768542189.576498,
+    "raw_text": "Client: John Golden. Contact: . Request: URGENT. I need 200 Jollof Packs for tomorrow morning at 8am. Please tell me you can do this!\"",
+    "processed": {
+      "customer_name": "John Golden",
+      "order_items": [
+        "200 Jollof Packs"
+      ],
+      "deadline": "tomorrow morning at 8am",
+      "inventory_needed": [
+        "Rice",
+        "Tomatoes",
+        "Peppers",
+        "Onions",
+        "Vegetable Oil",
+        "Chicken/Beef/Vegetarian Protein",
+        "Spices (Curry, Thyme, etc.)",
+        "Packaging for Jollof Packs"
+      ],
+      "urgency_score": 9,
+      "user_queries": [
+        "Can you do this?"
+      ],
+      "missing_info": [
+        "Contact information",
+        "Specific delivery address",
+        "Payment method"
+      ],
+      "suggested_response": "Dear John, thank you for your urgent request. We can potentially fulfill your order of 200 Jollof Packs for tomorrow morning at 8am. To confirm, could you please provide your contact number and the delivery address? Also, what payment method would you prefer? We look forward to hearing from you!",
+      "resource_risk": "High Volume: Jollof Packs"
+    }
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "exocore-mcp": {
+      "name": "ExoCore Systems WebMCP Server",
+      "description": "ExoCore Systems AI-native operations infrastructure",
+      "transport": {
+        "type": "sse",
+        "url": "http://localhost:8000/sse"
+      }
+    }
+  }
+}

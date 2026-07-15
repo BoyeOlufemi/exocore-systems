@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExoCore Protocol | Submit Signal</title>
+    <style>
+        :root {
+            --ebony: #1A1A1B;
+            --green: #D0F0C0;
+            --coral: #FF4D4D;
+            --ochre: #E3B448;
+            --text: #F4F1EA;
+            --font-main: 'Montserrat', -apple-system, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--ebony);
+            color: var(--text);
+            font-family: var(--font-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .shield-form {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--green);
+            padding: 2.5rem;
+            width: 100%;
+            max-width: 500px;
+            border-radius: 20px 0 20px 0;
+            /* Shield Corners */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        /* Decorative Corners */
+        .shield-form::before,
+        .shield-form::after {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border: 2px solid var(--green);
+            transition: all 0.3s ease;
+        }
+
+        .shield-form::before {
+            top: 10px;
+            left: 10px;
+            border-width: 2px 0 0 2px;
+        }
+
+        .shield-form::after {
+            bottom: 10px;
+            right: 10px;
+            border-width: 0 2px 2px 0;
+        }
+
+        h2 {
+            color: var(--green);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            color: var(--ochre);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            background-color: rgba(26, 26, 27, 0.8);
+            border: 1px solid rgba(208, 240, 192, 0.3);
+            padding: 1rem;
+            color: var(--text);
+            font-family: monospace;
+            font-size: 1rem;
+            border-radius: 4px;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: var(--green);
+        }
+
+        button {
+            width: 100%;
+            background-color: var(--green);
+            color: var(--ebony);
+            border: none;
+            padding: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            border-radius: 0 10px 0 10px;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        button:hover {
+            background-color: var(--ochre);
+            box-shadow: 0 0 15px rgba(227, 180, 72, 0.4);
+        }
+
+        #status {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            height: 20px;
+        }
+
+        .success {
+            color: var(--green);
+        }
+
+        .error {
+            color: var(--coral);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="shield-form">
+        <h2>Submit Order Signal</h2>
+
+        <form id="orderForm">
+            <div class="form-group">
+                <label for="name">Client Name</label>
+                <input type="text" id="name" required placeholder="e.g. Grace / Bluebird Cafe">
+            </div>
+
+            <div class="form-group">
+                <label for="whatsapp">WhatsApp Number</label>
+                <input type="tel" id="whatsapp" placeholder="e.g. +1 555 0199">
+            </div>
+
+            <div class="form-group">
+                <label for="details">Order Details</label>
+                <textarea id="details" rows="5" required
+                    placeholder="Describe your order, quantity, and deadline..."></textarea>
+            </div>
+
+            <button type="submit">Transmit Signal</button>
+            <div id="status"></div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('orderForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const status = document.getElementById('status');
+            const btn = document.querySelector('button');
+
+            status.textContent = "Transmitting...";
+            status.className = "";
+            btn.disabled = true;
+            btn.style.opacity = "0.7";
+
+            const name = document.getElementById('name').value;
+            const whatsapp = document.getElementById('whatsapp').value;
+            const details = document.getElementById('details').value;
+
+            // Construct specific text format for the PrepFlow Engine
+            const payload = `Client: ${name}. Contact: ${whatsapp}. Request: ${details}`;
+
+            try {
+                const response = await fetch('https://idioglottic-riva-overambitiously.ngrok-free.dev/inbound', {
+                    method: 'POST',
+                    body: payload,
+                    headers: {
+                        'Content-Type': 'text/plain'
+                    }
+                });
+
+                if (response.ok) {
+                    status.textContent = "✓ SIGNAL RECEIVED BY EXOCCORE";
+                    status.className = "success";
+                    document.getElementById('orderForm').reset();
+                } else {
+                    throw new Error('Transmission Blocked');
+                }
+            } catch (error) {
+                console.error(error);
+                status.textContent = "⚠️ CONNECTION ERROR: Check Receiver API";
+                status.className = "error";
+            } finally {
+                btn.disabled = false;
+                btn.style.opacity = "1";
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+# ExoCore Systems | Agent-Native Operating Systems
+
+ExoCore Systems designs and deploys AI-powered operating systems across multiple verticals. This project features a WebMCP interface layer for automated interactions.
+
+## Core API Endpoints
+- `POST /inbound`: Receives raw unstructured text signals from external channels.
+- `GET /.well-known/mcp.json`: Discovery manifest listing active MCP servers and transport configurations.
+- `GET /llms.txt`: This documentation index.
+
+## WebMCP Tools
+The ExoCore Systems WebMCP Server (available via SSE transport at `http://localhost:8000/sse`) exposes the following capabilities:
+
+### `process_inbound_signal`
+- **Description:** Run the Gemini-powered signal parser to extract customer identity, order details, deadlines, and urgency score from raw text messages.
+- **Parameters:**
+  - `message` (string, required): Raw text message.
+- **Returns:** Structured JSON details.
+
+### `get_inventory`
+- **Description:** Retrieve the current stock levels of core ingredients/materials in the stockroom.
+- **Returns:** Dict of item stock counts.
+
+### `deduct_inventory`
+- **Description:** Deduct stock of a specific ingredient from the master inventory after fulfilling a task.
+- **Parameters:**
+  - `item` (string, required): Ingredient name (e.g. Flour, Meat, Rice, Spices, Oil).
+  - `qty` (number, required): Quantity to deduct.
+- **Returns:** Transaction details and updated stock level.
+
+### `get_pending_signals`
+- **Description:** View all unprocessed incoming signals.
+- **Returns:** List of pending orders.

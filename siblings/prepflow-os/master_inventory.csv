@@ -1,0 +1,6 @@
+Item,Current_Stock,Unit,Reorder_Level
+Flour,100,kg,20
+Meat,50,kg,10
+Rice,200,kg,40
+Spices,10,kg,2
+Oil,40,Liters,5
