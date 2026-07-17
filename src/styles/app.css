@@ -229,16 +229,14 @@ textarea.field{resize:vertical;min-height:92px}
   object-fit:cover;
   border-radius:inherit;
   display:block;
-  opacity:0.95;
-  mix-blend-mode:luminosity;
-  mask-image:radial-gradient(circle at 50% 45%,black 50%,rgba(0,0,0,0.4) 80%,transparent 100%);
-  -webkit-mask-image:radial-gradient(circle at 50% 45%,black 50%,rgba(0,0,0,0.4) 80%,transparent 100%);
-  transition:opacity .4s ease,mix-blend-mode .4s ease,filter .4s ease;
+  opacity:0.97;
+  mask-image:radial-gradient(circle at 50% 45%,black 55%,rgba(0,0,0,0.5) 80%,transparent 100%);
+  -webkit-mask-image:radial-gradient(circle at 50% 45%,black 55%,rgba(0,0,0,0.5) 80%,transparent 100%);
+  transition:opacity .4s ease,filter .4s ease;
 }
 .portrait:hover img{
   opacity:1;
-  mix-blend-mode:normal;
-  filter:contrast(1.05);
+  filter:contrast(1.05) brightness(1.03);
 }
 .portrait .mono-mark{font-family:var(--fd);font-weight:700;font-size:clamp(3rem,7vw,5rem);color:rgba(181,158,128,.4)}
 .portrait .ph-cap{position:absolute;bottom:1rem;left:0;right:0;text-align:center;font-family:var(--fm);
