@@ -184,7 +184,7 @@ function Home() {
           <div className="about-grid">
             <div className="portrait reveal">
               <img
-                src="/headshot.webp"
+                src="/headshot.png"
                 alt="Boye' Olufemi"
                 style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: 'inherit', display: 'block' }}
               />

@@ -223,6 +223,23 @@ textarea.field{resize:vertical;min-height:92px}
 .portrait{aspect-ratio:4/5;border-radius:var(--radius);border:1px solid var(--line-2);
   background:radial-gradient(circle at 50% 38%,rgba(181,158,128,.16),rgba(31,26,22,.2)),var(--bg-1);
   display:grid;place-items:center;position:relative;overflow:hidden}
+.portrait img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border-radius:inherit;
+  display:block;
+  opacity:0.95;
+  mix-blend-mode:luminosity;
+  mask-image:radial-gradient(circle at 50% 45%,black 50%,rgba(0,0,0,0.4) 80%,transparent 100%);
+  -webkit-mask-image:radial-gradient(circle at 50% 45%,black 50%,rgba(0,0,0,0.4) 80%,transparent 100%);
+  transition:opacity .4s ease,mix-blend-mode .4s ease,filter .4s ease;
+}
+.portrait:hover img{
+  opacity:1;
+  mix-blend-mode:normal;
+  filter:contrast(1.05);
+}
 .portrait .mono-mark{font-family:var(--fd);font-weight:700;font-size:clamp(3rem,7vw,5rem);color:rgba(181,158,128,.4)}
 .portrait .ph-cap{position:absolute;bottom:1rem;left:0;right:0;text-align:center;font-family:var(--fm);
   font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-38)}
