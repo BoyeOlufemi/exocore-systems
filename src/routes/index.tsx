@@ -13,12 +13,11 @@ function Home() {
           <div className="hero-grid">
             <div>
               <span className="eyebrow reveal" style={{ letterSpacing: '.1em' }}>
-                Operational Architect | Business Process Optimization &amp; Intelligent Workflow Systems
+                Operations Architect | Supply Chain Logistics &amp; Agri-Procurement Systems
               </span>
-              <h1 className="reveal">I build systems that eliminate the busywork.</h1>
+              <h1 className="reveal">I build systems that eliminate operational waste.</h1>
               <p className="lead reveal">
-                Custom automation that takes the manual load off your team and gives back hours every week. You get the
-                whole system built, tested, and handed over clean, so it&rsquo;s yours to run.
+                Custom automation that resolves data silos, connects field teams to the office, and automates compliance audits. You get the whole system built, tested, and handed over clean.
               </p>
               <div className="hero-cta reveal">
                 <a className="btn btn-primary btn-lg" href="#contact">Locate Operational Waste →</a>
@@ -108,34 +107,32 @@ function Home() {
         <div className="wrap">
           <div className="shead reveal">
             <span className="eyebrow">ExoCore Systems</span>
-            <h2>Two tracks. One operating system.</h2>
-            <p className="lead muted">One system, the Functional Nucleus, put to work two ways for two kinds of business.</p>
+            <h2>Two focuses. One operating system.</h2>
+            <p className="lead muted">Applying the Functional Nucleus to eliminate the leaks in physical operations and logistics.</p>
           </div>
           <div className="venture reveal">
             <div className="vmark">A</div>
             <div>
-              <span className="vtag">Track A · Home Services</span>
-              <h3>The 24/7 AI Employee</h3>
+              <span className="vtag">Track A · Field Procurement</span>
+              <h3>Field Buying &amp; Grading Platforms</h3>
               <p className="muted">
-                It answers every call, sizes up the lead, and books the estimate, so you are live within 48 hours. Made
-                for contractors who lose work the second a call goes to voicemail.
+                Connect your field coordinators, lab testers, and weighbridge scales. We automate grading checks, moisture readings, and crop ingestion logs, so data gets to the office in seconds.
               </p>
-              <div className="vlinks"><Link to="/contractors">See the contractors page →</Link></div>
+              <div className="vlinks"><Link to="/agri">See procurement solutions &rarr;</Link></div>
             </div>
-            <div className="vside">Live in 48h</div>
+            <div className="vside">Field First</div>
           </div>
           <div className="venture reveal">
             <div className="vmark">B</div>
             <div>
-              <span className="vtag">Track B · Internal Operations</span>
-              <h3>The Auditable Ops Platform</h3>
+              <span className="vtag">Track B · Supply Chain Logistics</span>
+              <h3>Auditable Inventory &amp; Logistics Platforms</h3>
               <p className="muted">
-                Centralizes field, lab, warehouse, and back-office operations into one secure, role-based system with an
-                immutable audit trail. Built for agri-procurement and complex supply chains.
+                Centralizes multi-site warehouse data, matches bills of lading against shipments, and builds an immutable audit trail for compliance and finance reporting.
               </p>
-              <div className="vlinks"><Link to="/agri">See the agri-procurement page →</Link></div>
+              <div className="vlinks"><Link to="/agri">See logistics solutions &rarr;</Link></div>
             </div>
-            <div className="vside">Audit first</div>
+            <div className="vside">Audit Ready</div>
           </div>
         </div>
       </section>
@@ -155,17 +152,15 @@ function Home() {
               <span className="sample-tag">The Catalyst</span>
               <div className="big"><em>96%</em> faster</div>
               <p>
-                Leads that sort themselves. Every new inquiry gets scored, checked, and passed to sales around the clock,
-                with nobody watching over it.<br />
-                <span className="mono" style={{ color: 'var(--ink-38)', fontSize: '.78rem' }}>n8n · Claude · ZeroBounce · Supabase</span>
+                Compliance checking that runs itself. Quality certificates and bills of lading are indexed, parsed, and checked for spec adherence automatically upon receipt.<br />
+                <span className="mono" style={{ color: 'var(--ink-38)', fontSize: '.78rem' }}>n8n · Claude · OCR · Supabase</span>
               </p>
             </div>
             <div className="metric reveal">
               <span className="sample-tag">The Shield</span>
               <div className="big">168 <em>hrs/mo</em></div>
               <p>
-                Invoices that handle themselves. Bills get matched, approved, and sent to QuickBooks with zero errors, and
-                a clean paper trail every time.<br />
+                Vendor invoices processed end-to-end. Bills are matched to purchase orders, verified against delivery logs, and routed for approvals with a full audit trail.<br />
                 <span className="mono" style={{ color: 'var(--ink-38)', fontSize: '.78rem' }}>n8n · Claude · Supabase</span>
               </p>
             </div>
@@ -203,18 +198,19 @@ function Home() {
               </p>
               <p>
                 I started out as a Clinical Operations Specialist. That is where it hit me: the biggest thing slowing good
-                work down is almost always wasted effort. So I taught myself to build systems that take that waste away. I
-                work out of Chicago, building the software that keeps a business running smoothly behind the scenes.
+                work down in complex environments is almost always data fragmentation and compliance friction. So I taught
+                myself to build secure, auditable systems that eliminate that waste. I work out of Chicago, building the
+                software that keeps operations running smoothly behind the scenes.
               </p>
               <p>
-                Most of my work is in farming and supply chains. The hard part there is connecting what happens out in the
-                field to the back office, so a crop can be tracked from the ground all the way to the warehouse, with the
-                data kept private and safe. Through ExoCore Systems I do the same for businesses of every size, from a
-                contractor who cannot miss a single call to an office buried in spreadsheets.
+                Most of my work is in agriculture and supply chains. The hard part there is connecting what happens out in
+                the field to the back office, so a crop can be tracked from the ground all the way to the warehouse, with
+                every inspection and trade record kept private, auditable, and safe. Through ExoCore Systems, I do the
+                same for mid-market supply chain, manufacturing, and regulated logistics companies.
               </p>
               <p>
-                Whether I am setting up a database or putting an AI assistant to work, the goal never changes: build things
-                that let a business run smoothly, safely, and without wasted effort.
+                Whether I am mapping workflow handoffs, linking scales and lab databases, or configuring secure n8n servers,
+                the goal never changes: build systems that let a business run smoothly, safely, and without wasted effort.
               </p>
               <div className="role-row">
                 <span className="chip">Founder · ExoCore Systems</span>
