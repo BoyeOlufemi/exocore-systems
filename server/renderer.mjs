@@ -1,20 +1,24 @@
 // Nitro renderer adapter for TanStack Start (SSR via Vercel serverless)
 //
-// Why no h3 imports: The top-level 'h3' package (used by nitro@3 / nitro/vite)
-// exposes a different Node.js entry that does NOT export toWebRequest. Importing
-// from '#imports' redirects there and causes a Rollup MISSING_EXPORT error.
-// Solution: build a Web Request directly from the raw Node.js IncomingMessage.
-import serverEntry from '../dist/server/server.js'
+// Import path: node_modules/.nitro/vite/services/ssr/index.js
+// This is where TanStack Start's Vite plugin outputs the compiled SSR server
+// entry when the Nitro Vite plugin (preset: 'vercel') intercepts the build.
+// Using dist/server/server.js fails on CI because that file is only produced
+// locally by older build configs; the current build always writes here instead.
+//
+// No h3 imports: The top-level h3 package (h3@v6, used by nitro@3/nitro/vite)
+// exposes a Node.js entry that does NOT export toWebRequest. Using #imports
+// redirects there too. We build a Web Request directly from Node.js instead.
+import serverEntry from '../node_modules/.nitro/vite/services/ssr/index.js'
 
 /**
- * Nitro renderer — plain async function so Nitro's H3 lazy loader
- * gets typeof === 'function' (required; defineEventHandler objects fail the check).
+ * Plain async function — Nitro/H3 lazy loader requires typeof === 'function'.
+ * Using defineEventHandler() returns an object which fails the type check.
  *
  * @param {import('h3').H3Event} event
  */
 export default async function handler(event) {
   const req = event.node.req
-  const res = event.node.res
 
   // Build the full URL from the incoming Node.js request
   const proto = req.headers['x-forwarded-proto'] || 'https'
@@ -47,12 +51,9 @@ export default async function handler(event) {
     method: req.method || 'GET',
     headers,
     body,
-    // @ts-ignore duplex is required for streaming request bodies
+    // @ts-ignore duplex required for streaming bodies
     duplex: body ? 'half' : undefined,
   })
 
-  // Call TanStack Start's fetch handler
-  const response = await serverEntry.fetch(request)
-
-  return response
+  return await serverEntry.fetch(request)
 }

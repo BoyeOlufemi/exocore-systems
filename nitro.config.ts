@@ -7,6 +7,10 @@ import { defineNitroConfig } from 'nitropack/config'
  * Why: The Nitro Vite plugin (nitro/vite) reads this config during `vite build`
  * and crashes with "Cannot create property 'handler' on string" when `renderer`
  * is a string. Excluding it during Vite build prevents the crash.
+ *
+ * The renderer imports from node_modules/.nitro/vite/services/ssr/index.js —
+ * this is where TanStack Start's SSR server entry is written by the Vite build,
+ * both locally and on Vercel CI (dist/server/server.js is NOT reliably produced).
  */
 const isNitroBuildPhase = process.env.BUILD_PHASE === 'nitro'
 
@@ -14,8 +18,6 @@ export default defineNitroConfig({
   preset: 'vercel',
   compatibilityDate: '2026-07-16',
 
-  // Only copy compiled client assets during the standalone Nitro build.
-  // During vite build, the Nitro Vite plugin places assets in .vercel/output/static automatically.
   ...(isNitroBuildPhase
     ? {
         publicAssets: [
