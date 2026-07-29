@@ -1,12 +1,10 @@
 import os
 import sys
-import json
-import csv
-from datetime import datetime
-from typing import List, Dict, Optional
+from typing import List, Dict
 import pandas as pd
 from dotenv import load_dotenv
 from mcp.server.fastmcp import FastMCP
+from exocore_storage import append_signal, deduct_inventory as deduct_stock, read_signals
 
 # Load environment variables
 load_dotenv()
@@ -43,19 +41,9 @@ def process_inbound_signal(message: str) -> Dict:
             "processed": result
         }
         
-        if os.path.exists(PENDING_ORDERS_PATH):
-            with open(PENDING_ORDERS_PATH, 'r') as f:
-                signals = json.load(f)
-        else:
-            signals = []
-            
-        signals.append(signal_entry)
-        
-        with open(PENDING_ORDERS_PATH, 'w') as f:
-            json.dump(signals, f, indent=2)
-            
+        append_signal(PENDING_ORDERS_PATH, signal_entry)
     except Exception as e:
-        print(f"Error saving signal to pending log: {e}")
+        return {"error": f"Signal was processed but could not be persisted: {e}"}
         
     return result
 
@@ -83,37 +71,7 @@ def deduct_inventory(item: str, qty: float) -> Dict:
         return {"error": f"Inventory file not found at {INVENTORY_PATH}"}
     
     try:
-        df = pd.read_csv(INVENTORY_PATH)
-        mask = df['Item'].str.lower() == item.lower()
-        if not mask.any():
-            return {"error": f"Ingredient '{item}' not found in inventory."}
-            
-        current_stock = df.loc[mask, 'Current_Stock'].values[0]
-        new_stock = max(0.0, float(current_stock) - float(qty))
-        df.loc[mask, 'Current_Stock'] = new_stock
-        df.to_csv(INVENTORY_PATH, index=False)
-        
-        # Log the transaction
-        file_exists = os.path.isfile(LOG_PATH)
-        with open(LOG_PATH, mode='a', newline='') as file:
-            writer = csv.writer(file)
-            if not file_exists:
-                writer.writerow(['Timestamp', 'Customer', 'Items', 'Deadline', 'Urgency', 'Risk'])
-            writer.writerow([
-                datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                "MCP Agent",
-                f"{item} ({qty})",
-                "Immediate",
-                10,
-                "Deduction"
-            ])
-            
-        return {
-            "success": True,
-            "item": item,
-            "previous_stock": float(current_stock),
-            "new_stock": float(new_stock)
-        }
+        return deduct_stock(INVENTORY_PATH, LOG_PATH, item, float(qty))
     except Exception as e:
         return {"error": f"Failed to deduct stock: {str(e)}"}
 
@@ -125,8 +83,7 @@ def get_pending_signals() -> List[Dict]:
     if not os.path.exists(PENDING_ORDERS_PATH):
         return []
     try:
-        with open(PENDING_ORDERS_PATH, 'r') as f:
-            return json.load(f)
+        return read_signals(PENDING_ORDERS_PATH)
     except Exception as e:
         return [{"error": f"Failed to read pending signals: {str(e)}"}]
 

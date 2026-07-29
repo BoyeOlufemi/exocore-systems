@@ -2,11 +2,21 @@
 
 Personal site for **Boye' Olufemi** — Operational Architect | Business Process Optimization & Intelligent Workflow Systems.
 
-Automation studio that clears the busywork out of a business. Live prototype, "Nocturnal Bohemian Modernism" aesthetic.
+Automation studio and operational-signal prototype for turning unstructured
+requests into reviewable business actions.
 
 ## What's here
 
-`index.html` — a self-contained static prototype of the full site. No build step, no dependencies. Open it in a browser or drop it on any static host.
+- `index.html` — self-contained ExoCore portfolio and service-site prototype.
+- `receiver_api.py` — authenticated inbound-signal receiver.
+- `mcp_server.py` — MCP tools for signal review and inventory operations.
+- `exocore_storage.py` — locked, atomic prototype persistence.
+- `siblings/prepflow-os/` — PrepFlow operational workflow demonstration.
+
+The website and PrepFlow are separate prototypes in one repository. The website
+communicates the studio offer; PrepFlow demonstrates the underlying pattern:
+
+`unstructured request → structured signal → resource check → human decision → recorded action`
 
 It uses hash-based routing for three views:
 
@@ -29,6 +39,36 @@ Any static host works:
 - **Vercel** — import the repo, framework preset "Other", output = repo root.
 - **GitHub Pages** — Settings → Pages → deploy from `main` / root.
 - **Netlify / Cloudflare Pages** — drag-and-drop or connect the repo.
+
+## Run the PrepFlow prototype
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+cp .env.example .env
+python receiver_api.py
+```
+
+Set a strong `EXOCORE_RECEIVER_TOKEN` and send it as a bearer token. The receiver
+rejects oversized, unauthenticated, empty, and unsupported requests. Pending
+signals are written atomically, and inventory deductions reject non-positive or
+insufficient quantities instead of silently reducing inventory to zero.
+
+Run the storage regression suite with:
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+## Evidence and production boundary
+
+This repository demonstrates portfolio presentation, AI-assisted signal
+extraction, an MCP interface, and guarded local persistence. It is not a
+multi-tenant production operations platform. Flat files remain appropriate only
+for the local prototype; production work requires authenticated identities,
+database transactions, idempotent events, audit records, monitoring, and
+explicit human approval for consequential actions.
 
 ## Roadmap
 

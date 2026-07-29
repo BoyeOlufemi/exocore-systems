@@ -1,6 +1,6 @@
 import os
 import json
-import google.generativeai as genai
+from google import genai
 from dotenv import load_dotenv
 
 # Load environment variables
@@ -42,8 +42,7 @@ def process_message(raw_text):
         return None
 
     try:
-        genai.configure(api_key=api_key)
-        model = genai.GenerativeModel('gemini-2.0-flash')
+        client = genai.Client(api_key=api_key)
 
         system_instruction = """
         You are the PrepFlow OS AI Brain. Your task is to extract structured variables from raw inbound messages.
@@ -65,7 +64,10 @@ def process_message(raw_text):
         
         prompt = f"{system_instruction}\n\nINBOUND MESSAGE:\n{raw_text}"
         
-        response = model.generate_content(prompt)
+        response = client.models.generate_content(
+            model="gemini-2.0-flash",
+            contents=prompt,
+        )
         cleaned_text = response.text.strip().replace("```json", "").replace("```", "")
         return json.loads(cleaned_text)
 
