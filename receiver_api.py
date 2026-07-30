@@ -1,4 +1,4 @@
-from flask import Flask, request, send_from_directory
+from flask import Flask, jsonify, request, send_from_directory
 from flask_cors import CORS
 import sys
 import os
@@ -7,9 +7,18 @@ import os
 # Add the PrepFlow Logic path to the system so we can import the brain
 sys.path.append(os.path.join(os.path.dirname(__file__), 'siblings', 'prepflow-os', 'scripts'))
 from prepflow_engine import process_message
+from exocore_storage import append_signal
 
 app = Flask(__name__)
-CORS(app) # Enable CORS for all routes
+app.config["MAX_CONTENT_LENGTH"] = 64 * 1024
+CORS(
+    app,
+    resources={
+        r"/inbound": {
+            "origins": os.getenv("EXOCORE_ALLOWED_ORIGIN", "http://localhost:5001")
+        }
+    },
+)
 
 @app.route('/llms.txt')
 def serve_llms_txt():
@@ -22,15 +31,23 @@ def serve_mcp_json():
 
 @app.route('/inbound', methods=['POST'])
 def inbound():
+    receiver_token = os.getenv("EXOCORE_RECEIVER_TOKEN")
+    if not receiver_token:
+        return jsonify(error="Receiver is not configured"), 503
+    if request.headers.get("Authorization") != f"Bearer {receiver_token}":
+        return jsonify(error="Unauthorized"), 401
+    if request.mimetype not in {"text/plain", "application/json"}:
+        return jsonify(error="Content-Type must be text/plain or application/json"), 415
+
     # 1. Capture the raw signal
-    raw_data = request.data.decode('utf-8')
-    print(f"\n[INBOUND SIGNAL DETECTED]:\n{raw_data}\n")
+    raw_data = request.get_data(as_text=True).strip()
+    if not raw_data:
+        return jsonify(error="Inbound message is required"), 400
 
     # 2. Pass to the AI Brain
     result = process_message(raw_data)
     
     # 2.5 Persistence (The Bridge to Dashboard)
-    import json
     import time
     
     # Path to shared signal log
@@ -43,21 +60,9 @@ def inbound():
     }
     
     try:
-        # Read or init
-        if os.path.exists(log_path):
-            with open(log_path, 'r') as f:
-                signals = json.load(f)
-        else:
-            signals = []
-            
-        signals.append(signal_entry)
-        
-        # Save
-        with open(log_path, 'w') as f:
-            json.dump(signals, f, indent=2)
-            
+        append_signal(log_path, signal_entry)
     except Exception as e:
-        print(f"Error saving signal: {e}")
+        return jsonify(error=f"Signal persistence failed: {e}"), 500
 
     # 3. Log the structured result to terminal (optional, for visibility)
     if result:
@@ -65,7 +70,9 @@ def inbound():
         print(f">> Urgency: {result.get('urgency_score')}/10")
     
     # 4. Acknowledge receipt
-    return 'Signal Received', 200
+    if not result:
+        return jsonify(error="Signal processing failed"), 502
+    return jsonify(status="received", processed=result), 200
 
 if __name__ == '__main__':
     print("🛡️  ExoCore Receiver Active on Port 5001...")
