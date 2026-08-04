@@ -2,15 +2,21 @@ import { defineNitroConfig } from 'nitropack/config'
 
 /**
  * BUILD_PHASE=nitro is set ONLY when running the standalone Nitro build step.
- * During `vite build`, BUILD_PHASE is NOT set, so the renderer is excluded.
+ * During `vite build`, BUILD_PHASE is NOT set, so the renderer is excluded —
+ * this prevents the Nitro Vite plugin from crashing with
+ * "Cannot create property 'handler' on string".
  *
- * Why: The Nitro Vite plugin (nitro/vite) reads this config during `vite build`
- * and crashes with "Cannot create property 'handler' on string" when `renderer`
- * is a string. Excluding it during Vite build prevents the crash.
+ * Static asset strategy:
+ *   - Vite writes compiled CSS/JS to .vercel/output/static/assets/
+ *   - Nitro standalone build then WIPES .vercel/output/static/ (replaces with public/)
+ *   - package.json build script backs up .vercel/output/static/assets before
+ *     Nitro runs and restores it after, so both public/ files AND compiled
+ *     assets end up in the final .vercel/output/static/
  *
- * The renderer imports from node_modules/.nitro/vite/services/ssr/index.js —
- * this is where TanStack Start's SSR server entry is written by the Vite build,
- * both locally and on Vercel CI (dist/server/server.js is NOT reliably produced).
+ * Renderer import path:
+ *   node_modules/.nitro/vite/services/ssr/index.js is where TanStack Start's
+ *   Vite plugin always writes the SSR server entry (both locally and on CI).
+ *   dist/server/server.js is NOT reliably produced on fresh CI builds.
  */
 const isNitroBuildPhase = process.env.BUILD_PHASE === 'nitro'
 
@@ -20,12 +26,6 @@ export default defineNitroConfig({
 
   ...(isNitroBuildPhase
     ? {
-        publicAssets: [
-          {
-            dir: 'dist/client',
-            baseURL: '/',
-          },
-        ],
         renderer: './server/renderer.mjs',
       }
     : {}),

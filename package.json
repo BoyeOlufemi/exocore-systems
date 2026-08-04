@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
-    "build": "vite build && BUILD_PHASE=nitro NITRO_PRESET=vercel npx nitro build",
+    "build": "vite build && cp -rp .vercel/output/static/assets .vercel-assets-bak && BUILD_PHASE=nitro NITRO_PRESET=vercel npx nitro build && cp -rp .vercel-assets-bak/. .vercel/output/static/assets/ && rm -rf .vercel-assets-bak",
     "preview": "vite preview",
     "start": "node .output/server/index.mjs"
   },
