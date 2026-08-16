@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "destination": "https://olaboyejoolufemi.com/",
+      "permanent": false
+    }
+  ]
+}
